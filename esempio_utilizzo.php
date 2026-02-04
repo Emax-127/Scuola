@@ -99,7 +99,7 @@ $result = mysqli_query($conn, $sql);
         
         while ($row = mysqli_fetch_assoc($result)) {
             echo '<tr>';
-            echo '<td>' . htmlspecialchars($row['id']) . '</td>';
+            echo '<td>' . $row['id'] . '</td>';
             echo '<td>' . htmlspecialchars($row['materia']) . '</td>';
             echo '<td>' . htmlspecialchars($row['descrizione']) . '</td>';
             echo '<td>' . date('d/m/Y', strtotime($row['data_consegna'])) . '</td>';
