@@ -1,0 +1,35 @@
+# PHP
+*.log
+*.cache
+vendor/
+composer.phar
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Configuration (uncomment in production to protect sensitive data)
+# web/config/database.php
+
+# Backup files
+*.sql.bak
+backup_*.sql
+
+# Session files
+sessions/
+
+# Upload directories (if any)
+uploads/
