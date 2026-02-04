@@ -1,0 +1,24 @@
+# Ignore file di configurazione con password
+config.local.php
+
+# Ignore file temporanei
+*.tmp
+*.temp
+*.log
+
+# Ignore file di backup
+*.bak
+*~
+
+# Ignore cartelle di sistema
+.DS_Store
+Thumbs.db
+
+# Ignore file IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore file di test personali
+test_*.php
