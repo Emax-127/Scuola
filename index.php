@@ -10,6 +10,11 @@ $values = [
     'class' => '',
 ];
 
+$formLinkIsValid = filter_var($formLink, FILTER_VALIDATE_URL) !== false;
+if (!$formLinkIsValid) {
+    $generalError = 'Link al modulo non valido. Contatta il docente.';
+}
+
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -23,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!isset($_POST['csrf_token']) || !hash_equals($csrfToken, $_POST['csrf_token'])) {
         $generalError = 'Sessione non valida. Riprova.';
-    } else {
+    } elseif ($generalError === '') {
         if ($values['name'] === '') {
             $errors['name'] = 'Inserisci il nome.';
         }
@@ -41,12 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($errors === []) {
-            if (!filter_var($formLink, FILTER_VALIDATE_URL)) {
-                $generalError = 'Link al modulo non valido. Contatta il docente.';
-            } else {
-                header('Location: ' . $formLink);
-                exit;
-            }
+            header('Location: ' . $formLink);
+            exit;
         }
     }
 }
@@ -111,6 +112,11 @@ function field_value(string $key, array $values): string
         button:hover {
             background: #1558b5;
         }
+        .hint {
+            margin-top: 6px;
+            color: #5f6368;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
@@ -144,6 +150,7 @@ function field_value(string $key, array $values): string
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
+            <div class="hint">La password non viene salvata, serve solo per l'accesso al modulo.</div>
             <?php if (isset($errors['password'])) : ?>
                 <div class="error"><?php echo htmlspecialchars($errors['password'], ENT_QUOTES, 'UTF-8'); ?></div>
             <?php endif; ?>
