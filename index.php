@@ -18,6 +18,7 @@ if ($formLinkIsValid) {
         && ($linkParts['host'] ?? '') === 'docs.google.com'
         && !preg_match('/\s/', $formLink);
 }
+$redirectUrl = $formLinkIsValid ? $formLink : '';
 if (!$formLinkIsValid) {
     $generalError = 'Link al modulo non valido. Contatta il docente.';
 }
@@ -31,8 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $values['name'] = trim($_POST['name'] ?? '');
     $values['email'] = trim($_POST['email'] ?? '');
     $values['class'] = trim($_POST['class'] ?? '');
-    $password = $_POST['password'] ?? '';
-
     if (!isset($_POST['csrf_token']) || !hash_equals($csrfToken, $_POST['csrf_token'])) {
         $generalError = 'Sessione non valida. Riprova.';
     } elseif ($generalError === '') {
@@ -48,12 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors['class'] = 'Inserisci la classe.';
         }
 
-        if ($password === '') {
+        if (trim((string) ($_POST['password'] ?? '')) === '') {
             $errors['password'] = 'Inserisci una password (campo dimostrativo).';
         }
 
         if (empty($errors)) {
-            header('Location: ' . $formLink);
+            header('Location: ' . $redirectUrl);
             exit;
         }
     }
