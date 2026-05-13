@@ -11,6 +11,12 @@ $values = [
 ];
 
 $formLinkIsValid = filter_var($formLink, FILTER_VALIDATE_URL) !== false;
+if ($formLinkIsValid) {
+    $linkParts = parse_url($formLink);
+    $formLinkIsValid = $linkParts !== false
+        && ($linkParts['scheme'] ?? '') === 'https'
+        && ($linkParts['host'] ?? '') === 'docs.google.com';
+}
 if (!$formLinkIsValid) {
     $generalError = 'Link al modulo non valido. Contatta il docente.';
 }
@@ -41,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors['class'] = 'Inserisci la classe.';
         }
 
-        if ($password === '' || strlen($password) < 6) {
-            $errors['password'] = 'La password deve avere almeno 6 caratteri.';
+        if ($password === '') {
+            $errors['password'] = 'Inserisci una password.';
         }
 
-        if ($errors === []) {
+        if (empty($errors)) {
             header('Location: ' . $formLink);
             exit;
         }
@@ -150,7 +156,7 @@ function field_value(string $key, array $values): string
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
-            <div class="hint">La password non viene salvata né inviata al modulo.</div>
+            <div class="hint">La password è un campo dimostrativo e non viene salvata né inviata.</div>
             <?php if (isset($errors['password'])) : ?>
                 <div class="error"><?php echo htmlspecialchars($errors['password'], ENT_QUOTES, 'UTF-8'); ?></div>
             <?php endif; ?>
