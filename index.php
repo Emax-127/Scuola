@@ -16,7 +16,8 @@ if ($formLinkIsValid) {
     $formLinkIsValid = $linkParts !== false
         && ($linkParts['scheme'] ?? '') === 'https'
         && ($linkParts['host'] ?? '') === 'docs.google.com'
-        && !preg_match('/\s/', $formLink);
+        && !preg_match('/\s/', $formLink)
+        && !preg_match('/[\r\n]/', $formLink);
 }
 $redirectUrl = $formLinkIsValid ? $formLink : '';
 if (!$formLinkIsValid) {
