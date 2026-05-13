@@ -150,7 +150,7 @@ function field_value(string $key, array $values): string
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
-            <div class="hint">La password non viene salvata, serve solo per l'accesso al modulo.</div>
+            <div class="hint">La password non viene salvata né inviata al modulo.</div>
             <?php if (isset($errors['password'])) : ?>
                 <div class="error"><?php echo htmlspecialchars($errors['password'], ENT_QUOTES, 'UTF-8'); ?></div>
             <?php endif; ?>

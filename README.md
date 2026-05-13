@@ -2,7 +2,7 @@
 
 ## Registrazione TPSIT
 
-Questo progetto include una pagina PHP con form di registrazione (nome, email, classe, password) che, dopo la validazione, reindirizza al modulo Google.
+Questo progetto include una pagina PHP con form di registrazione (nome, email, classe, password) che, dopo la validazione, reindirizza al modulo Google. Il campo password è dimostrativo e non viene salvato né inviato.
 
 ### Uso
 
