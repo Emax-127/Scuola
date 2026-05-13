@@ -48,11 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($password === '') {
-            $errors['password'] = 'Inserisci una password.';
+            $errors['password'] = 'Inserisci una password (campo dimostrativo).';
         }
 
         if (empty($errors)) {
-            header('Location: ' . $formLink);
+            header('Location: ' . str_replace(' ', '%20', $formLink));
             exit;
         }
     }
