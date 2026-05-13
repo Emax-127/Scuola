@@ -52,8 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (empty($errors)) {
-            header('Location: ' . $redirectUrl);
-            exit;
+            if ($redirectUrl === '') {
+                $generalError = 'Link al modulo non valido. Contatta il docente.';
+            } else {
+                header('Location: ' . $redirectUrl);
+                exit;
+            }
         }
     }
 }
