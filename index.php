@@ -15,7 +15,8 @@ if ($formLinkIsValid) {
     $linkParts = parse_url($formLink);
     $formLinkIsValid = $linkParts !== false
         && ($linkParts['scheme'] ?? '') === 'https'
-        && ($linkParts['host'] ?? '') === 'docs.google.com';
+        && ($linkParts['host'] ?? '') === 'docs.google.com'
+        && !preg_match('/\s/', $formLink);
 }
 if (!$formLinkIsValid) {
     $generalError = 'Link al modulo non valido. Contatta il docente.';
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (empty($errors)) {
-            header('Location: ' . str_replace(' ', '%20', $formLink));
+            header('Location: ' . $formLink);
             exit;
         }
     }
